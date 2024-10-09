@@ -1,24 +1,23 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+let currentNumber = 1;
+const contentContainer = document.getElementById('content');
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+function addItems(count) {
+    for (let i = 0; i < count; i++) {
+        const item = document.createElement('div');
+        item.classList.add('item');
+        item.textContent = currentNumber++;
+        contentContainer.appendChild(item);
+    }
+}
 
-setupCounter(document.querySelector('#counter'))
+function checkScroll() {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
+        addItems(10);
+    }
+}
+
+// Initial load
+addItems(20);
+
+// Add scroll event listener
+window.addEventListener('scroll', checkScroll);
